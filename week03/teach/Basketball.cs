@@ -23,7 +23,8 @@ public class Basketball
         reader.TextFieldType = FieldType.Delimited;
         reader.SetDelimiters(",");
         reader.ReadFields(); // ignore header row
-        while (!reader.EndOfData) {
+        while (!reader.EndOfData)
+        {
             var fields = reader.ReadFields()!;
             var playerId = fields[0];
             var points = int.Parse(fields[8]);
@@ -31,6 +32,14 @@ public class Basketball
 
         Console.WriteLine($"Players: {{{string.Join(", ", players)}}}");
 
-        var topPlayers = new string[10];
+        var topPlayers = players.ToArray().OrderByDescending(p => p.Value).Take(10);
+
+
+        foreach (var player in topPlayers)
+        {
+            Console.WriteLine($"{player.Key} - {player.Value}");
+        }
+
+
     }
 }
